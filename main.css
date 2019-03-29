@@ -3,18 +3,25 @@
 }
 
 .trackName {
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
-/* .track {
-    margin: 1rem;
-} */
-
-/* .trackArt img{
-    height: 100px;
-} */
-
-.all_tracks {
-    /* display: flex; */
+.track {
+    display: flex-wrap;
+    border-bottom: solid black 1px;
+    text-align: center;
     width: 50%;
+    margin: 1rem;
+}
+
+.trackArt img{
+    text-align: center;
+}
+
+/* .allTracks {
+    display: flex-wrap;
+} */
+
+audio {
+    width: 100%;
 }
