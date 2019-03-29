@@ -2,6 +2,10 @@
     margin-left: 0.5rem;
 }
 
+.trackName {
+    font-size: 2rem;
+}
+
 /* .all_tracks {
     display: flex;
     width: 50%;

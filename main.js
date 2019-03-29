@@ -43,6 +43,7 @@ function addTrackData(song) {
         allTracks.appendChild(trackArt)
             trackArt.innerHTML = `<img src="${song.artworkUrl100}">`
             track.appendChild(trackName)
+            trackName.className = 'trackName'
             trackName.innerText = `${song.trackName}`
             track.appendChild(trackAlbum)
             trackAlbum.innerText = `${song.collectionName}`
