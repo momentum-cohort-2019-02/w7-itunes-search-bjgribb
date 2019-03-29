@@ -40,16 +40,19 @@ function addTrackData(song) {
     let trackName = document.createElement('div')
     let trackAlbum = document.createElement('div')
     let trackArt = document.createElement('div')
+    let trackPlayer = document.createElement('div')
         allTracks.appendChild(track)
-        track.className = 'track db center mw5 tc black link dim'
-        allTracks.appendChild(trackArt)
-        trackArt.className = 'trackArt db ba b--black-10'
+        track.className = 'track'
+        track.appendChild(trackArt)
+        trackArt.className = 'trackArt'
         trackArt.innerHTML = `<img src="${song.artworkUrl100}">`
         track.appendChild(trackName)
         trackName.className = 'trackName'
         trackName.innerText = `${song.trackName}`
         track.appendChild(trackAlbum)
         trackAlbum.innerText = `${song.collectionName}`
+        track.appendChild(trackPlayer)
+        trackPlayer.innerHTML = `<audio controls src="${song.previewUrl}"></audio>`
 }
 
 startSearch()
