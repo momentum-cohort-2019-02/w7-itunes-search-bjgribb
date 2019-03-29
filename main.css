@@ -6,7 +6,15 @@
     font-size: 2rem;
 }
 
-/* .all_tracks {
-    display: flex;
-    width: 50%;
+/* .track {
+    margin: 1rem;
 } */
+
+/* .trackArt img{
+    height: 100px;
+} */
+
+.all_tracks {
+    /* display: flex; */
+    width: 50%;
+}

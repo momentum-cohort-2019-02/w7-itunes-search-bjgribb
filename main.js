@@ -6,6 +6,7 @@ const allTracks = document.querySelector('.all_tracks')
 
 function startSearch () {
     searchButton.addEventListener('click', function() {
+        allTracks.innerHTML = ""
         getTracks(apiUrl.concat(encodeURIComponent(searchValue.value)))
         updateTracks(apiUrl.concat(encodeURIComponent(searchValue.value)))
         addTrackData(song)
@@ -40,13 +41,15 @@ function addTrackData(song) {
     let trackAlbum = document.createElement('div')
     let trackArt = document.createElement('div')
         allTracks.appendChild(track)
+        track.className = 'track db center mw5 tc black link dim'
         allTracks.appendChild(trackArt)
-            trackArt.innerHTML = `<img src="${song.artworkUrl100}">`
-            track.appendChild(trackName)
-            trackName.className = 'trackName'
-            trackName.innerText = `${song.trackName}`
-            track.appendChild(trackAlbum)
-            trackAlbum.innerText = `${song.collectionName}`
+        trackArt.className = 'trackArt db ba b--black-10'
+        trackArt.innerHTML = `<img src="${song.artworkUrl100}">`
+        track.appendChild(trackName)
+        trackName.className = 'trackName'
+        trackName.innerText = `${song.trackName}`
+        track.appendChild(trackAlbum)
+        trackAlbum.innerText = `${song.collectionName}`
 }
 
 startSearch()
