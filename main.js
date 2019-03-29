@@ -42,7 +42,7 @@ function updateTracks(url) {
 
 function addTrackName(song) {
     let trackName = document.createElement('div')
-    allTracks.append(trackName)
+    allTracks.appendChild(trackName)
     trackName.innerText = `${song.trackName}`
 }
 
