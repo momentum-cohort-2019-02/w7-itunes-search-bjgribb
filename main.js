@@ -2,6 +2,8 @@ const searchValue = document.querySelector('.search input')
 const searchButton = document.querySelector('.search button')
 const apiUrl = 'https://itunes-api-proxy.glitch.me/search?term='
 const allTracks = document.querySelector('.all_tracks')
+const player = document.querySelector('.player')
+// const test = document.querySelector('.trackArt 932648449')
 // let url = apiUrl.concat(encodeURIComponent(searchValue.value)) doesn't seem to work in passing to functions as variable??
 
 function startSearch () {
@@ -26,11 +28,13 @@ function getTracks(url) {
 }
 
 function updateTracks(url) {
-    // Looping through all returned songs from fetch and adding track data
+    // Looping through all returned songs from fetch and adding track data and pulling in the audio Url for central playback
     getTracks(url)
     .then(trackData => { for 
-        (let song of Object.values((trackData))[1])
+        (let song of Object.values((trackData))[1]) {
             addTrackData(song)
+            playSong(song)
+        }
     })  
 }
 
@@ -40,22 +44,26 @@ function addTrackData(song) {
     let trackName = document.createElement('div')
     let trackAlbum = document.createElement('div')
     let trackArt = document.createElement('div')
-    let trackPlayer = document.createElement('div')
         allTracks.appendChild(track)
-        track.className = 'track'
         track.appendChild(trackArt)
-        trackArt.className = 'trackArt'
+        trackArt.className = `trackArt_${song.trackId}`
         trackArt.innerHTML = `<img src="${song.artworkUrl100}">`
         track.appendChild(trackName)
-        trackName.className = 'trackName'
+        trackName.className = `trackName`
         trackName.innerText = `${song.trackName}`
         track.appendChild(trackAlbum)
         trackAlbum.innerText = `${song.collectionName}`
-        track.appendChild(trackPlayer)
-        trackPlayer.innerHTML = `<audio controls src="${song.previewUrl}"></audio>`
 }
 
+function playSong (song) {
+    // This function is selecting each individual trackArt div adding a click event which adds this song to the player at the top
+    document.querySelector(`.trackArt_${song.trackId}`).addEventListener('click', function () {
+        player.innerHTML = `<audio controls src="${song.previewUrl}"></audio>`
+    })}
+
+
 startSearch()
+
 
 
 // NOTES:
@@ -64,5 +72,3 @@ startSearch()
 // var blackSabbath = fetch('https://itunes-api-proxy.glitch.me/search?term=black+sabbath')
 //     .then(promise => promise.json())
 //     console.log(blackSabbath.then(data => Object.values(data)))
-
-// clearing element clear innerHTML

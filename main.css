@@ -6,22 +6,35 @@
     font-size: 1.5rem;
 }
 
+.all_tracks {
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
 .track {
-    display: flex-wrap;
     border-bottom: solid black 1px;
     text-align: center;
-    width: 50%;
     margin: 1rem;
+    width: 100%;
 }
 
-.trackArt img{
+img{
     text-align: center;
 }
-
-/* .allTracks {
-    display: flex-wrap;
-} */
 
 audio {
     width: 100%;
+}
+
+@media screen and (min-width: 500px) {
+    .all_tracks {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+
+    .track {
+        width: 40%;
+    }
 }
