@@ -1,26 +1,19 @@
 const searchValue = document.querySelector('.search input')
 const searchButton = document.querySelector('.search button')
 const apiUrl = 'https://itunes-api-proxy.glitch.me/search?term='
-let trackName = document.createElement('div')
 const allTracks = document.querySelector('.all_tracks')
-console.log(allTracks)
-// This is working to format the url based on user text and fetch and return song data
-// function userSearch () {
-//     searchButton.addEventListener('click', function() {
-//         var url = (apiUrl.concat(encodeURIComponent(searchValue.value)))
-//         fetch(url).then(promise => promise.json())
-//         .then(data => { for (let song of Object.values((data))[1])
-//             console.log(song.trackName)
-//             })
-//     })
-// }
-// userSearch()
+// let url = apiUrl.concat(encodeURIComponent(searchValue.value)) doesn't seem to work in passing to functions as variable??
 
-// HOT NONSENSE
-
-const url = 'https://itunes-api-proxy.glitch.me/search?term=black+sabbath'
+function startSearch () {
+    searchButton.addEventListener('click', function() {
+        getTracks(apiUrl.concat(encodeURIComponent(searchValue.value)))
+        updateTracks(apiUrl.concat(encodeURIComponent(searchValue.value)))
+        addTrackData(song)
+} )
+}
 
 function getTracks(url) {
+    // making fetch request returning json
     const promise = fetch(url
         ).then(function (response) {
         if (!response.ok) {
@@ -28,25 +21,35 @@ function getTracks(url) {
         }
         return response.json()
     })
-    console.log(promise)
     return promise
 }
 
 function updateTracks(url) {
+    // Looping through all returned songs from fetch and adding track data
     getTracks(url)
     .then(trackData => { for 
         (let song of Object.values((trackData))[1])
-            addTrackName(song)
+            addTrackData(song)
     })  
 }
 
-function addTrackName(song) {
+function addTrackData(song) {
+    // This function will be called on each track and populate the relevant data (i.e. title, album art)
+    let track = document.createElement('div')
     let trackName = document.createElement('div')
-    allTracks.append(trackName)
-    trackName.innerText = `${song.trackName}`
+    let trackAlbum = document.createElement('div')
+    let trackArt = document.createElement('div')
+        allTracks.appendChild(track)
+        allTracks.appendChild(trackArt)
+            trackArt.innerHTML = `<img src="${song.artworkUrl100}">`
+            track.appendChild(trackName)
+            trackName.innerText = `${song.trackName}`
+            track.appendChild(trackAlbum)
+            trackAlbum.innerText = `${song.collectionName}`
 }
 
-updateTracks(url)
+startSearch()
+
 
 // NOTES:
 
