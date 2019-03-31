@@ -3,12 +3,37 @@
     padding: 0;
 }
 
-.search button {
+body {
+    padding: 1rem;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    line-height: 1rem;
+}
+
+.search_box {
+    display: flex;
+    flex-wrap: wrap;
+    line-height: 1rem;
+}
+
+.search_box button {
     margin-left: 0.5rem;
+    margin-right: 0.5rem;
 }
 
 .trackName {
-    font-size: 1.5rem;
+    font-size: 1rem;
+    padding: 0.25rem;
+}
+
+.trackAlbum {
+    font-size: 0.5rem;
+    padding: 0.25rem;
 }
 
 .all_tracks {
@@ -20,8 +45,9 @@
 .track {
     text-align: center;
     margin: 1rem;
-    width: 70%;
-    box-shadow: 0px 10px 8px 10px #888888;
+    /* width: 70%; */
+    max-width: 200px;
+    box-shadow: 0px 8px 5px 5px #888888;
 }
 
 .track:hover {

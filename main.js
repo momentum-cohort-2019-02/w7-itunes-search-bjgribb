@@ -1,16 +1,26 @@
-const searchValue = document.querySelector('.search input')
-const searchButton = document.querySelector('.search button')
+const searchValue = document.querySelector('#user_input')
+const searchButton = document.querySelector('.search_box button')
 const apiUrl = 'https://itunes-api-proxy.glitch.me/search?term='
 const allTracks = document.querySelector('.all_tracks')
 const player = document.querySelector('.player')
 // const test = document.querySelector('.trackArt 932648449')
 // let url = apiUrl.concat(encodeURIComponent(searchValue.value)) doesn't seem to work in passing to functions as variable??
 
+// function setUrl () {
+
+// }
+
 function startSearch () {
     searchButton.addEventListener('click', function() {
         allTracks.innerHTML = ""
-        getTracks(apiUrl.concat(encodeURIComponent(searchValue.value)))
-        updateTracks(apiUrl.concat(encodeURIComponent(searchValue.value)))
+        if(document.getElementById('music_video').checked) {
+            getTracks(apiUrl.concat(encodeURIComponent(searchValue.value),'&media=musicVideo'))
+                console.log(apiUrl.concat(encodeURIComponent(searchValue.value),'&media=musicVideo'))
+            updateTracks(apiUrl.concat(encodeURIComponent(searchValue.value),'&media=musicVideo'))
+        } else {
+            getTracks(apiUrl.concat(encodeURIComponent(searchValue.value)))
+            updateTracks(apiUrl.concat(encodeURIComponent(searchValue.value)))
+        }
         addTrackData(song)
 } )
 }
@@ -53,19 +63,23 @@ function addTrackData(song) {
         trackName.className = `trackName`
         trackName.innerText = `${song.trackName}`
         track.appendChild(trackAlbum)
+        trackAlbum.className = 'trackAlbum'
         trackAlbum.innerText = `${song.collectionName}`
 }
 
 function playSong (song) {
     // This function is selecting each individual trackArt div adding a click event which adds this song to the player at the top
     document.querySelector(`.track_${song.trackId}`).addEventListener('click', function () {
+        let audio = document.querySelector('audio')
         player.innerHTML = `<audio controls src="${song.previewUrl}"></audio>`
+            if (audio.getAttribute('src') !== `${song.previewUrl}` || audio.paused) {
+                document.querySelector('audio').play()
+            } else {
+                document.querySelector('audio').pause()
+            }
     })}
 
-
 startSearch()
-
-
 
 // NOTES:
 
