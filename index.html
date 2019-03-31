@@ -7,12 +7,21 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/> -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="main.css">
     </head>
     <body>
-        <div class="search"><input type="text"><button>Search</button></div>
+        <div class="search_box">
+        <input type="text" id="user_input"><button>Search</button>
+        <ul>
+            <li>
+            <input type="radio" value="media=musicVideo&amp;" id="music_video">
+            Music Video Filter
+            </li>
+        </div>
         <h1>All Tracks</h1>
         <div class="player">
+        <audio controls src=''></audio>
         </div>
         <div class="all_tracks">
         </div>
