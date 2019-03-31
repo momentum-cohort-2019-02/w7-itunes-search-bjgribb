@@ -44,9 +44,10 @@ function addTrackData(song) {
     let trackName = document.createElement('div')
     let trackAlbum = document.createElement('div')
     let trackArt = document.createElement('div')
+        track.className = `track_${song.trackId} track`
         allTracks.appendChild(track)
         track.appendChild(trackArt)
-        trackArt.className = `trackArt_${song.trackId}`
+        trackArt.className = `trackArt`
         trackArt.innerHTML = `<img src="${song.artworkUrl100}">`
         track.appendChild(trackName)
         trackName.className = `trackName`
@@ -57,7 +58,7 @@ function addTrackData(song) {
 
 function playSong (song) {
     // This function is selecting each individual trackArt div adding a click event which adds this song to the player at the top
-    document.querySelector(`.trackArt_${song.trackId}`).addEventListener('click', function () {
+    document.querySelector(`.track_${song.trackId}`).addEventListener('click', function () {
         player.innerHTML = `<audio controls src="${song.previewUrl}"></audio>`
     })}
 

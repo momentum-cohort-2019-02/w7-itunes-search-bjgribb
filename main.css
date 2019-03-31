@@ -1,3 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 .search button {
     margin-left: 0.5rem;
 }
@@ -9,18 +14,23 @@
 .all_tracks {
     display:flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .track {
-    border-bottom: solid black 1px;
     text-align: center;
     margin: 1rem;
-    width: 100%;
+    width: 70%;
+    box-shadow: 0px 10px 8px 10px #888888;
+}
+
+.track:hover {
+    transform: scale(1.1);
 }
 
 img{
     text-align: center;
+    padding-top: 1rem;
 }
 
 audio {
@@ -36,5 +46,7 @@ audio {
 
     .track {
         width: 40%;
+        /* max-width: 100px; */
+
     }
 }
