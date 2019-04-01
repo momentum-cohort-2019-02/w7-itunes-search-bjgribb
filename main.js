@@ -3,6 +3,7 @@ const searchButton = document.querySelector('.search_box button')
 const apiUrl = 'https://itunes-api-proxy.glitch.me/search?term='
 const allTracks = document.querySelector('.all_tracks')
 const player = document.querySelector('.player')
+const mediaType = document.querySelector('#media_type')
 // const test = document.querySelector('.trackArt 932648449')
 // let url = apiUrl.concat(encodeURIComponent(searchValue.value)) doesn't seem to work in passing to functions as variable??
 
@@ -10,25 +11,27 @@ const player = document.querySelector('.player')
 
 // }
 
-function startSearch () {
-    searchButton.addEventListener('click', function() {
+function startSearch() {
+    searchButton.addEventListener('click', function () {
         allTracks.innerHTML = ""
-        if(document.getElementById('music_video').checked) {
-            getTracks(apiUrl.concat(encodeURIComponent(searchValue.value),'&media=musicVideo'))
-                console.log(apiUrl.concat(encodeURIComponent(searchValue.value),'&media=musicVideo'))
-            updateTracks(apiUrl.concat(encodeURIComponent(searchValue.value),'&media=musicVideo'))
+        if (mediaType.value === 'music_video') {
+            getTracks(apiUrl.concat(encodeURIComponent(searchValue.value), '&media=musicVideo'))
+            updateTracks(apiUrl.concat(encodeURIComponent(searchValue.value), '&media=musicVideo'))
+        } else if (mediaType.value === 'artist') {
+            getTracks(apiUrl.concat(encodeURIComponent(searchValue.value), '&entity=musicArtist'))
+            updateTracks(apiUrl.concat(encodeURIComponent(searchValue.value), '&entity=musicArtist'))
+            // console.log(apiUrl.concat(encodeURIComponent(searchValue.value), '&entity=musicArtist'))
         } else {
             getTracks(apiUrl.concat(encodeURIComponent(searchValue.value)))
             updateTracks(apiUrl.concat(encodeURIComponent(searchValue.value)))
         }
         addTrackData(song)
-} )
+    })
 }
 
 function getTracks(url) {
     // making fetch request returning json
-    const promise = fetch(url
-        ).then(function (response) {
+    const promise = fetch(url).then(function (response) {
         if (!response.ok) {
             throw Error(response.statusText)
         }
@@ -40,12 +43,12 @@ function getTracks(url) {
 function updateTracks(url) {
     // Looping through all returned songs from fetch and adding track data and pulling in the audio Url for central playback
     getTracks(url)
-    .then(trackData => { for 
-        (let song of Object.values((trackData))[1]) {
-            addTrackData(song)
-            playSong(song)
-        }
-    })  
+        .then(trackData => {
+            for (let song of Object.values((trackData))[1]) {
+                addTrackData(song)
+                playSong(song)
+            }
+        })
 }
 
 function addTrackData(song) {
@@ -54,17 +57,23 @@ function addTrackData(song) {
     let trackName = document.createElement('div')
     let trackAlbum = document.createElement('div')
     let trackArt = document.createElement('div')
-        track.className = `track_${song.trackId} track`
-        allTracks.appendChild(track)
-        track.appendChild(trackArt)
-        trackArt.className = `trackArt`
-        trackArt.innerHTML = `<img src="${song.artworkUrl100}">`
-        track.appendChild(trackName)
-        trackName.className = `trackName`
+    allTracks.appendChild(track)
+    track.appendChild(trackArt)
+    track.appendChild(trackName)
+    track.appendChild(trackAlbum)
+    track.className = `track_${song.trackId} track`
+    trackArt.className = `trackArt`
+    trackName.className = `trackName`
+    trackAlbum.className = 'trackAlbum'
+    if (mediaType.value === 'artist') {
+        trackName.innerText = `${song.artistName}`
+        trackName.innerHTML = `<a href="${song.artistLinkUrl}" target="_blank">${song.artistName}</a>`
+        trackAlbum.innerText = `Genre: ${song.primaryGenreName}`
+    } else {
         trackName.innerText = `${song.trackName}`
-        track.appendChild(trackAlbum)
-        trackAlbum.className = 'trackAlbum'
         trackAlbum.innerText = `${song.collectionName}`
+        trackArt.innerHTML = `<img src="${song.artworkUrl100}">`
+    }
 }
 
 function playSong (song) {
